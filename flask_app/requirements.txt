@@ -1,0 +1,12 @@
+numpy
+flask
+celery
+requests
+opencv-python==4.4.0.44
+pillow
+redis
+future
+imgaug
+shapely
+scipy
+validators

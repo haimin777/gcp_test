@@ -1,0 +1,33 @@
+version: '3'
+services:
+
+
+  ocr_model_recognizer:
+    image: "haimin777/ocr_recognizer"
+    container_name: "ocrrecognizer"
+
+  ocr_model:
+    image: "haimin777/ocr_detector"
+    container_name: "ocrmodel"
+
+  redis:
+    image: "redis"
+    container_name: "localredis"
+
+  web:
+      build: ./flask_app
+      ports:
+        - "5000:5000"
+
+      depends_on:
+      - "redis"
+
+
+  worker:
+    build:
+      context: "./flask_app"
+
+    command: celery --app=app.celery worker -l INFO
+    depends_on:
+      - "redis"
+
